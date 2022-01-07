@@ -1,6 +1,5 @@
-using System.Reactive;
-using System.Text;
-using Avalonia.Input;
+using System;
+using System.Windows.Input;
 using ReactiveUI;
 
 namespace WorldsCollideTracker.ViewModels
@@ -8,44 +7,31 @@ namespace WorldsCollideTracker.ViewModels
     public class CheckViewModel : ViewModelBase
     {
 
-        private int _available;
-        
-        public ReactiveCommand<PointerReleasedEventArgs, Unit> HandleClick { get; }
+        private bool _available;
+        private string _name;
+
+        public ICommand Click { get; }
 
         public CheckViewModel()
         {
-            HandleClick = ReactiveCommand.Create<PointerReleasedEventArgs>(HandleClickImpl);
+            Click = ReactiveCommand.Create(() => Available = !Available);
         }
-        
-        public int Available
+
+        public string Name
+        {
+            get => _name;
+            set => this.RaiseAndSetIfChanged(ref _name, value);
+        }
+        public bool Available
         {
             get => _available;
-            set => this.RaiseAndSetIfChanged(ref _available, value);
-        }
-
-        public string ImageSource
-        {
-            get
+            set
             {
-                var sb = new StringBuilder();
-                sb.Append("avares://WorldsCollideTracker/Assets/Images/Characters/");
-
-                sb.Append("Celes");
-
-                sb.Append(Available);
-                sb.Append(".png");
-                return sb.ToString();
+                this.RaiseAndSetIfChanged(ref _available, value);
+                this.RaisePropertyChanged("ImageSource");
             }
         }
 
-        private void HandleClickImpl(PointerReleasedEventArgs e)
-        {
-            Available = e.InitialPressMouseButton switch
-            {
-                MouseButton.Left => 1,
-                MouseButton.Right => 0,
-                _ => Available
-            };
-        }
+        public string ImageSource => $"avares://WorldsCollideTracker/Assets/Images/Characters/{Name.ToLower()}{Convert.ToInt32(Available)}.png";
     }
 }

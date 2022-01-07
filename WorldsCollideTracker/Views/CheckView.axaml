@@ -18,7 +18,9 @@
     <StackPanel Spacing="5" Width="200">
         <Border ClipToBounds="True">
             <Panel Height="200">
-                <Image Source="{Binding ImageSource, Converter={StaticResource BitmapValueConverter}}"/>
+                <Button Command="{Binding Click}">
+                    <Image Source="{Binding ImageSource, Converter={StaticResource BitmapValueConverter}}" />
+                </Button>
             </Panel>
         </Border>
     </StackPanel>

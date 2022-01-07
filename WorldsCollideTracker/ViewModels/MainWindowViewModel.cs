@@ -10,7 +10,8 @@ namespace WorldsCollideTracker.ViewModels
 
         public MainWindowViewModel()
         {
-            Checks.Add(new CheckViewModel());
+            Checks.Add(new CheckViewModel() {Name = "Celes"});
+            Checks.Add(new CheckViewModel() {Name = "Cyan"});
         }
         
         public ObservableCollection<CheckViewModel> Checks { get; } = new();
