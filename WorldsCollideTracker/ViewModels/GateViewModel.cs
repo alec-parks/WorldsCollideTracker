@@ -9,8 +9,8 @@ namespace WorldsCollideTracker.ViewModels
 {
     public class GateViewModel : ViewModelBase
     {
-        private Character _character;
-        private List<CheckViewModel> _checks;
+        private readonly Character _character;
+        private readonly List<CheckViewModel> _checks;
         private bool _isFound;
         
         public ICommand Click { get; }
@@ -19,7 +19,6 @@ namespace WorldsCollideTracker.ViewModels
         {
             _character = character;
             _isFound = character.IsFound;
-            // TODO implement this next
             _checks = _character.Checks.Select(ch => new CheckViewModel(ch)).ToList();
             Click = ReactiveCommand.Create(() => IsFound = !IsFound);
         }
@@ -35,10 +34,10 @@ namespace WorldsCollideTracker.ViewModels
             {
                 _checks.ForEach(ch => ch.IsAvailable = true);
                 this.RaiseAndSetIfChanged(ref _isFound, value);
-                this.RaisePropertyChanged(ImageSource);
+                this.RaisePropertyChanged(nameof(ImageSource));
             }
         }
 
-        public string ImageSource => $"avares://WorldsCollideTracker/Assets/Images/Character/{Name.ToLower()}{Convert.ToInt32(IsFound)}.png";
+        public string ImageSource => $"avares://WorldsCollideTracker/Assets/Images/Characters/{Name.ToLower()}{Convert.ToInt32(IsFound)}.png";
     }
 }
