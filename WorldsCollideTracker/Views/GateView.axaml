@@ -12,13 +12,14 @@
         <vc:BitmapValueConverter x:Key="BitmapValueConverter"/>
     </UserControl.Resources>
     
-    <Panel Width="120">
+    <Panel>
         <Border ClipToBounds="True">
-            <Panel Height="120">
-                <Button Command="{Binding Click}">
+            <RelativePanel Height="120">
+                <Button Name="Gate" Command="{Binding Click}">
                     <Image Source="{Binding ImageSource, Converter={StaticResource BitmapValueConverter}}" />
                 </Button>
-            </Panel>
+                <ItemsControl Items="{Binding Checks}" RelativePanel.RightOf="Gate"/>
+            </RelativePanel>
         </Border>
     </Panel>
 </UserControl>

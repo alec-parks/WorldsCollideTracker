@@ -11,10 +11,11 @@ namespace WorldsCollideTracker.ViewModels
 
         public MainWindowViewModel()
         {
-            var Kefka = new Check("Kefka", true);
-            Checks.Add(new CheckViewModel(Kefka));
+            var Kefka = new Check("Kefka");
+
+            var character = new Character("Celes", new[] {Kefka});
+            Gates.Add(new GateViewModel(character));
         }
-        
-        public ObservableCollection<CheckViewModel> Checks { get; } = new();
+        public ObservableCollection<GateViewModel> Gates { get; } = new();
     }
 }
