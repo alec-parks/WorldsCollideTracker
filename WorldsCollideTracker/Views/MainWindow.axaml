@@ -13,14 +13,14 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <Panel Margin="40">
-        <ItemsControl Items="{Binding Checks}">
+    <RelativePanel Margin="20">
+        <ItemsControl x:Name="Gates" Items="{Binding  Checks}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <local:CheckView/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-    </Panel>
+    </RelativePanel>
 
 </Window>

@@ -1,37 +1,59 @@
 using System;
+using System.Text;
 using System.Windows.Input;
 using ReactiveUI;
+using WorldsCollideTracker.Models;
 
 namespace WorldsCollideTracker.ViewModels
 {
     public class CheckViewModel : ViewModelBase
     {
-
-        private bool _available;
-        private string _name;
+        private Check _check;
+        private bool _isAvailable;
+        private bool _isDone;
 
         public ICommand Click { get; }
 
-        public CheckViewModel()
+        public CheckViewModel(Check check)
         {
-            Click = ReactiveCommand.Create(() => Available = !Available);
+            _check = check;
+            _isAvailable = check.IsAvailable;
+            _isDone = check.IsDone;
+            Click = ReactiveCommand.Create(() => IsDone = !IsDone);
         }
 
-        public string Name
+        public string Name => _check.Name;
+
+        public bool IsAvailable
         {
-            get => _name;
-            set => this.RaiseAndSetIfChanged(ref _name, value);
-        }
-        public bool Available
-        {
-            get => _available;
+            get => _isAvailable;
             set
             {
-                this.RaiseAndSetIfChanged(ref _available, value);
-                this.RaisePropertyChanged("ImageSource");
+                this.RaiseAndSetIfChanged(ref _isAvailable, value);
+                this.RaisePropertyChanged(nameof(ImageSource));
             }
         }
 
-        public string ImageSource => $"avares://WorldsCollideTracker/Assets/Images/Characters/{Name.ToLower()}{Convert.ToInt32(Available)}.png";
+        public bool IsDone
+        {
+            get => _isDone;
+            set
+            {
+                
+                this.RaiseAndSetIfChanged(ref _isDone, value); 
+                this.RaisePropertyChanged(nameof(ImageSource));
+            }
+        }
+
+        public string ImageSource {
+            get
+            {
+                var sb = new StringBuilder();
+                sb.Append($"avares://WorldsCollideTracker/Assets/Images/Checks/{Name.ToLower()}");
+                var variant = Convert.ToInt32(IsAvailable) + Convert.ToInt32(IsDone);
+                sb.Append($"{variant}.png");
+                return sb.ToString();
+            }
+        }
     }
 }

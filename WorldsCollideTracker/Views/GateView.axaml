@@ -5,9 +5,9 @@
              xmlns:vc="clr-namespace:WorldsCollideTracker.ValueConverters;assembly=WorldsCollideTracker"
              xmlns:local="clr-namespace:WorldsCollideTracker.Models"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             d:DataContext="{x:Static local:DesignModels.CheckViewModel}"
-             x:Class="WorldsCollideTracker.Views.CheckView">
-    
+             d:DataContext="{x:Static local:DesignModels.GateViewModel}"
+             x:Class="WorldsCollideTracker.Views.GateView">
+
     <UserControl.Resources>
         <vc:BitmapValueConverter x:Key="BitmapValueConverter"/>
     </UserControl.Resources>

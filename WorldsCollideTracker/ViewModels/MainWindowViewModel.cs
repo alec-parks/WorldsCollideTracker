@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using WorldsCollideTracker.Models;
 
 namespace WorldsCollideTracker.ViewModels
 {
@@ -10,8 +11,8 @@ namespace WorldsCollideTracker.ViewModels
 
         public MainWindowViewModel()
         {
-            Checks.Add(new CheckViewModel() {Name = "Celes"});
-            Checks.Add(new CheckViewModel() {Name = "Cyan"});
+            var Kefka = new Check("Kefka", true);
+            Checks.Add(new CheckViewModel(Kefka));
         }
         
         public ObservableCollection<CheckViewModel> Checks { get; } = new();
