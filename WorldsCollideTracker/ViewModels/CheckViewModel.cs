@@ -11,6 +11,8 @@ namespace WorldsCollideTracker.ViewModels
         private Check _check;
         private bool _isAvailable;
         private bool _isDone;
+        private const string ImageLocation = "avares://WorldsCollideTracker/Assets/Images/Checks";
+        private readonly ObservableAsPropertyHelper<string> _imageSource;
 
         public ICommand Click { get; }
 
@@ -20,6 +22,9 @@ namespace WorldsCollideTracker.ViewModels
             _isAvailable = check.IsAvailable;
             _isDone = check.IsDone;
             Click = ReactiveCommand.Create(() => IsDone = !IsDone);
+            _imageSource = this.WhenAnyValue(x => x.IsAvailable, x => x.IsDone,
+                    (x, y) => $"{ImageLocation}/{Name.ToLower()}{Convert.ToInt32(x)}{Convert.ToInt32(y)}.png")
+                .ToProperty(this, nameof(ImageSource));
         }
 
         public string Name => _check.Name;
@@ -30,7 +35,7 @@ namespace WorldsCollideTracker.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref _isAvailable, value);
-                this.RaisePropertyChanged(nameof(ImageSource));
+                _check.IsAvailable = value;
             }
         }
 
@@ -39,21 +44,11 @@ namespace WorldsCollideTracker.ViewModels
             get => _isDone;
             set
             {
-                
-                this.RaiseAndSetIfChanged(ref _isDone, value); 
-                this.RaisePropertyChanged(nameof(ImageSource));
+                this.RaiseAndSetIfChanged(ref _isDone, value);
+                _check.IsDone = value;
             }
         }
 
-        public string ImageSource {
-            get
-            {
-                var sb = new StringBuilder();
-                sb.Append($"avares://WorldsCollideTracker/Assets/Images/Checks/{Name.ToLower()}");
-                var variant = Convert.ToInt32(IsAvailable) + Convert.ToInt32(IsDone);
-                sb.Append($"{variant}.png");
-                return sb.ToString();
-            }
-        }
+        public string ImageSource => _imageSource.Value;
     }
 }
