@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vc="clr-namespace:WorldsCollideTracker.ValueConverters;assembly=WorldsCollideTracker"
              xmlns:local="clr-namespace:WorldsCollideTracker.Models"
+             xmlns:views="clr-namespace:WorldsCollideTracker.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              d:DataContext="{x:Static local:DesignModels.GateViewModel}"
              x:Class="WorldsCollideTracker.Views.GateView">
@@ -12,14 +13,18 @@
         <vc:BitmapValueConverter x:Key="BitmapValueConverter"/>
     </UserControl.Resources>
     
-    <Panel>
-        <Border ClipToBounds="True">
-            <RelativePanel Height="120">
-                <Button Name="Gate" Command="{Binding Click}">
-                    <Image Source="{Binding ImageSource, Converter={StaticResource BitmapValueConverter}}" />
-                </Button>
-                <ItemsControl Items="{Binding Checks}" RelativePanel.RightOf="Gate"/>
-            </RelativePanel>
-        </Border>
-    </Panel>
+    
+    <RelativePanel Height="120">
+        <Button Name="Gate" Command="{Binding Click}">
+            <Image Source="{Binding ImageSource, Converter={StaticResource BitmapValueConverter}}" />
+        </Button>
+        <ItemsControl Items="{Binding Checks}" RelativePanel.RightOf="Gate">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </RelativePanel>
+    
 </UserControl>

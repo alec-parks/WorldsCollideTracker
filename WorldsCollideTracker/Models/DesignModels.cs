@@ -5,21 +5,20 @@ namespace WorldsCollideTracker.Models
 {
     public class DesignModels
     {
-        public static Check check => new("Kefka");
+        public static Check Check => new("Kefka");
         // Magitek Factory, Opera House, South Figaro
-        public static Check magitek => new("MagitekFactory");
-        public static Check operaHouse => new("OperaHouse");
-        public static Check southFigaro => new("SouthFigaro");
+        public static Check Magitek => new("MagitekFactory");
+        public static Check OperaHouse => new("OperaHouse");
+        public static Check SouthFigaro => new("SouthFigaro");
 
-        public static List<Check> checks => new()
+        public static List<Check> Checks => new()
         {
-            magitek, southFigaro, operaHouse
+            Magitek, /*SouthFigaro,*/ OperaHouse
         };
 
-        //TODO Use Celes' actual checks once there's Images.
-        public static Character Character => new("Celes", new []{check});
+        public static Character Character => new("Celes", Checks);
 
-        public static CheckViewModel CheckViewModel = new(check);
+        public static CheckViewModel CheckViewModel = new(Check);
 
         public static GateViewModel GateViewModel = new(Character);
     }
